@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Phone(O)Friends</string>
+
+    <string name="hint_name">Enter your full name</string>
+    <string name="hint_email">Enter valid email address</string>
+    <string name="hint_password">Enter the password</string>
+    <string name="hint_contact">Enter valid contact</string>
+    <string name="info">
+        <u>SignUp Info</u>
+    </string>
+    <string name="birthday">
+        <u>BirthDay</u>
+    </string>
+    <string name="gender">
+        <u>Gender</u>
+    </string>
+    <string name="drawer_closed">drawer_closed</string>
+    <string name="drawer_open">drawer_open</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
