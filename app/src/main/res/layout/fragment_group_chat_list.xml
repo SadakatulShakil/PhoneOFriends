@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Fragment.GroupChatListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--<com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/goToPostFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="10dp"
+        android:src="@drawable/ic_add"
+        tools:targetApi="lollipop" />-->
+
+    <ru.dimorinny.floatingtextbutton.FloatingTextButton
+        android:id="@+id/groupFabBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        app:floating_background_color="@color/colorPrimary"
+        app:floating_left_icon="@drawable/ic_add"
+        app:floating_title="New Group"
+        app:floating_title_color="@android:color/white"
+        />
+
+</RelativeLayout>

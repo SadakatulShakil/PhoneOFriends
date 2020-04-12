@@ -25,16 +25,16 @@
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="20dp"
             android:ems="10"
-            android:hint="search through districts! e.g.Dhaka"
+            android:hint="search through mobile number"
             android:imeOptions="actionNext"
-            android:inputType="textAutoComplete"
+            android:inputType="number"
             android:padding="10dp" />
 
 
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/donorRecycleView"
+        android:id="@+id/userListRecycleView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="5dp"

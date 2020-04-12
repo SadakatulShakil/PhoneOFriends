@@ -9,16 +9,18 @@
         android:roundIcon="@mipmap/ic_phoneofriends"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activity.HomeActivity"></activity>
-        <activity android:name=".View.Activity.SignInActivity" />
-        <activity android:name=".View.Activity.SignUpActivity" />
-        <activity android:name=".View.Activity.MainActivity">
+        <activity android:name=".View.Activity.SingleChatBoardActivity"></activity>
+        <activity android:name=".View.Activity.GroupChatActivity" />
+        <activity android:name=".View.Activity.SingleChatActivity" />
+        <activity android:name=".View.Activity.HomeActivity" />
+        <activity android:name=".View.Activity.SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".View.Activity.SignUpActivity" />
     </application>
 
 </manifest>

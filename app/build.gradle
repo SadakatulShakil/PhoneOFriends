@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -52,4 +53,5 @@ dependencies {
 
 //Times ForMater
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'com.github.dimorinny:floating-text-button:0.0.4'
 }
