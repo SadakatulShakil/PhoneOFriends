@@ -7,23 +7,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 
 import com.example.phoneofriends.R;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupChatListFragment extends Fragment {
-
-    private FloatingTextButton fabBtn;
+public class SelectGroupMemberFragment extends Fragment {
+    private FloatingTextButton fabCreateBtn;
+    private RecyclerView selectableMember;
+    private AutoCompleteTextView searchBox;
     private Context context;
-    public GroupChatListFragment() {
+    public SelectGroupMemberFragment() {
         // Required empty public constructor
     }
     @Override
@@ -36,7 +40,7 @@ public class GroupChatListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_chat_list, container, false);
+        return inflater.inflate(R.layout.fragment_select_group_member, container, false);
     }
 
     @Override
@@ -44,12 +48,12 @@ public class GroupChatListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inItView(view);
-        fabBtn.setOnClickListener(new View.OnClickListener() {
+        fabCreateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentTransaction fragmentTransaction = getActivity()
                         .getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameForGroupChat, new SelectGroupMemberFragment());
+                fragmentTransaction.replace(R.id.frameForGroupChat, new CreateGroupFragment());
                 fragmentTransaction.commit();
                 fragmentTransaction.addToBackStack(null);
             }
@@ -57,6 +61,7 @@ public class GroupChatListFragment extends Fragment {
     }
 
     private void inItView(View view) {
-        fabBtn = view.findViewById(R.id.groupFabBt);
+
+        fabCreateBtn = view.findViewById(R.id.createFabBt);
     }
 }

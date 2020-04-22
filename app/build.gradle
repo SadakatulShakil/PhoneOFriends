@@ -54,4 +54,5 @@ dependencies {
 //Times ForMater
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
     implementation 'com.github.dimorinny:floating-text-button:0.0.4'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
 }

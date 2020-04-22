@@ -1,42 +1,41 @@
 package com.example.phoneofriends.View.Fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.phoneofriends.R;
-
-import ru.dimorinny.floatingtextbutton.FloatingTextButton;
+import com.example.phoneofriends.View.Activity.GroupChatActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class GroupChatListFragment extends Fragment {
-
-    private FloatingTextButton fabBtn;
+public class CreateGroupFragment extends Fragment {
+    private FloatingActionButton createNlow;
     private Context context;
-    public GroupChatListFragment() {
+    public CreateGroupFragment() {
         // Required empty public constructor
     }
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_group_chat_list, container, false);
+        return inflater.inflate(R.layout.fragment_create_group, container, false);
     }
 
     @Override
@@ -44,19 +43,17 @@ public class GroupChatListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inItView(view);
-        fabBtn.setOnClickListener(new View.OnClickListener() {
+        createNlow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getActivity()
-                        .getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.frameForGroupChat, new SelectGroupMemberFragment());
-                fragmentTransaction.commit();
-                fragmentTransaction.addToBackStack(null);
+                Intent intent = new Intent(context, GroupChatActivity.class);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
     }
 
     private void inItView(View view) {
-        fabBtn = view.findViewById(R.id.groupFabBt);
+        createNlow = view.findViewById(R.id.createNowtFAB);
     }
 }
