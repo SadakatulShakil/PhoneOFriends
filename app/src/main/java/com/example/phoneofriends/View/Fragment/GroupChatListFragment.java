@@ -7,12 +7,27 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.phoneofriends.R;
+import com.example.phoneofriends.View.Adapters.GroupListAdapter;
+import com.example.phoneofriends.View.Adapters.UserListAdapter;
+import com.example.phoneofriends.View.Model.GroupDetail;
+import com.example.phoneofriends.View.Model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 
@@ -22,7 +37,11 @@ import ru.dimorinny.floatingtextbutton.FloatingTextButton;
 public class GroupChatListFragment extends Fragment {
 
     private FloatingTextButton fabBtn;
+    private RecyclerView groupNameRecyclerView;
+    private GroupListAdapter groupListAdapter;
+    private ArrayList<GroupDetail> mGroupList;
     private Context context;
+    private DatabaseReference groupNameRef;
     public GroupChatListFragment() {
         // Required empty public constructor
     }
@@ -44,6 +63,14 @@ public class GroupChatListFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         inItView(view);
+
+        mGroupList = new ArrayList<>();
+        groupNameRecyclerView.setLayoutManager(new LinearLayoutManager(context));
+        groupListAdapter = new GroupListAdapter(context, mGroupList);
+        groupNameRecyclerView.setAdapter(groupListAdapter);
+
+        retrieveGroupName();
+
         fabBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +83,33 @@ public class GroupChatListFragment extends Fragment {
         });
     }
 
+    private void retrieveGroupName() {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String userId = firebaseUser.getUid();
+        groupNameRef = FirebaseDatabase.getInstance().getReference("GroupDetail");
+
+        groupNameRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    GroupDetail groupDetail = userSnapshot.getValue(GroupDetail.class);
+
+                        mGroupList.add(groupDetail);
+
+                    }
+
+                groupListAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void inItView(View view) {
         fabBtn = view.findViewById(R.id.groupFabBt);
+        groupNameRecyclerView = view.findViewById(R.id.groupNameRecycleView);
     }
 }

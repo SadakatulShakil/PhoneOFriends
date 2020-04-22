@@ -50,10 +50,12 @@
                     android:orientation="vertical">
 
                     <EditText
-                        android:id="@+id/userName"
+                        android:id="@+id/groupName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Please give a subject.."
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
                         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
                     <EditText

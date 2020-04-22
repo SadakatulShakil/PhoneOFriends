@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +41,7 @@ public class SingleChatListFragment extends Fragment {
     private ArrayList<User> userInfoList;
     private UserListAdapter appUserAdapter;
     DatabaseReference userRef;
+    private static final String TAG = "SingleChatListFragment";
     public SingleChatListFragment() {
         // Required empty public constructor
     }
@@ -93,6 +95,8 @@ public class SingleChatListFragment extends Fragment {
                     if(!user.getUserId().equals(userId)){
 
                         userInfoList.add(user);
+
+
                     }
                 }
                 appUserAdapter.notifyDataSetChanged();

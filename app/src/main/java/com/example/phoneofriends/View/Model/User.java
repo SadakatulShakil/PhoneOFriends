@@ -78,6 +78,18 @@ public class User implements Serializable {
     public void setUserGender(String userGender) {
         this.userGender = userGender;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userContact='" + userContact + '\'' +
+                ", userDateOfBirth='" + userDateOfBirth + '\'' +
+                ", userGender='" + userGender + '\'' +
+                '}';
+    }
 }
 
 
