@@ -9,14 +9,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.phoneofriends.R;
+import com.example.phoneofriends.View.Adapters.GroupMessageAdapter;
 import com.example.phoneofriends.View.Adapters.MessageAdapter;
+import com.example.phoneofriends.View.Model.GroupChats;
+import com.example.phoneofriends.View.Model.GroupDetail;
 import com.example.phoneofriends.View.Model.SingleChats;
 import com.example.phoneofriends.View.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,29 +39,27 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class SingleChatBoardActivity extends AppCompatActivity {
-    private FrameLayout frameLayout;
+public class GroupChatBoardActivity extends AppCompatActivity {
     private Toolbar dToolbar;
-    private FirebaseAuth firebaseAuth;
+    private GroupDetail groupDetail;
     private FirebaseUser firebaseUser;
+    private DatabaseReference groupMessageRef;
     private User user;
-    private ArrayList<SingleChats> singleChatList;
-    private MessageAdapter messageAdapter;
-    private DatabaseReference messageRef;
-    private RecyclerView chatListRecycleView;
-    private SingleChats singleChats;
+    private ArrayList<GroupChats> groupChatList;
     private EditText messageField;
+    private RecyclerView groupChatListRecycleView;
+    private GroupChats groupChats;
+    private GroupMessageAdapter groupMessageAdapter;
     private String date;
     private String sendingTime;
     private FloatingActionButton sendMessage;
-
+    private static final String TAG = "GroupChatBoardActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_single_chat_board);
+        setContentView(R.layout.activity_group_chat_board);
 
-        initViews();
-
+        inItView();
 
         dToolbar.setNavigationIcon(R.drawable.ic_back);
         dToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -70,28 +70,26 @@ public class SingleChatBoardActivity extends AppCompatActivity {
         });
 
         final Intent intent = getIntent();
-        user = (User) intent.getSerializableExtra("userInfo");
+        groupDetail = (GroupDetail) intent.getSerializableExtra("groupInfo");
 
-        if (user != null) {
-            String name = user.getUserName();
+        if (groupDetail != null) {
+            String name = groupDetail.getGroupName();
             dToolbar.setTitle(name);
         }
-        singleChatList = new ArrayList<>();
-        chatListRecycleView.setLayoutManager(new LinearLayoutManager(SingleChatBoardActivity.this));
-        messageAdapter = new MessageAdapter(SingleChatBoardActivity.this, singleChatList);
-        chatListRecycleView.setAdapter(messageAdapter);
+        groupChatList = new ArrayList<>();
+        groupChatListRecycleView.setLayoutManager(new LinearLayoutManager(GroupChatBoardActivity.this));
+        groupMessageAdapter = new GroupMessageAdapter(GroupChatBoardActivity.this, groupChatList);
+        groupChatListRecycleView.setAdapter(groupMessageAdapter);
 
-        RetrievedAllChatData();
+        RetrievedAllGroupChatData();
 
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                 final String mSenderId = firebaseUser.getUid();
-                final String mReceiverId = user.getUserId();
-
+                final String mGroupId = groupDetail.getGroupId();
                 date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-
                 Calendar calendar = Calendar.getInstance();
                 SimpleDateFormat myDateFormat = new SimpleDateFormat("hh:mm a");
                 sendingTime = myDateFormat.format(calendar.getTime());
@@ -104,35 +102,33 @@ public class SingleChatBoardActivity extends AppCompatActivity {
                     return;
                 }
 
-                storeMessages(mSenderId, mReceiverId, message, date, sendingTime);
+                storeGroupMessage(mGroupId, mSenderId, message,date,sendingTime);
 
                 messageField.setText("");
-
             }
         });
     }
 
-    private void RetrievedAllChatData() {
+    private void RetrievedAllGroupChatData() {
+
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final String senderId = firebaseUser.getUid();
-        messageRef = FirebaseDatabase.getInstance().getReference("Chats");
+        groupMessageRef = FirebaseDatabase.getInstance().getReference("GroupChats");
 
-        messageRef.addValueEventListener(new ValueEventListener() {
+        groupMessageRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                singleChatList.clear();
+                groupChatList.clear();
                 for(DataSnapshot chatSnapshot : dataSnapshot.getChildren()){
-                    SingleChats singleChats = chatSnapshot.getValue(SingleChats.class);
+                    GroupChats groupChats = chatSnapshot.getValue(GroupChats.class);
+                    if(groupDetail.getGroupId().equals(groupChats.getGroupId())){
 
-                    if(singleChats.getSenderId().equals(senderId) && singleChats.getReceiverId().equals(user.getUserId()) ||
-                        singleChats.getReceiverId().equals(senderId) && singleChats.getSenderId().equals(user.getUserId())){
-
-                        singleChatList.add(singleChats);
-
+                        groupChatList.add(groupChats);
+                        Log.d(TAG, "onCheck: message :" + groupChats.getMessages());
                     }
                 }
-                messageAdapter.notifyDataSetChanged();
-                chatListRecycleView.smoothScrollToPosition(chatListRecycleView.getAdapter().getItemCount());
+                //adapter setNotifyChanged//
+                groupMessageAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -140,39 +136,38 @@ public class SingleChatBoardActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
-    private void storeMessages(final String mSenderId, final String mReceiverId, final String message,
-                               final String date, final String sendingTime) {
+    private void storeGroupMessage(final String mGroupId, final String mSenderId,
+                                   final String message, final String date, final String sendingTime) {
 
-        messageRef = FirebaseDatabase.getInstance().getReference("Chats");
-        String pushId = messageRef.push().getKey();
+        groupMessageRef = FirebaseDatabase.getInstance().getReference("GroupChats");
+        String pushGroupId = groupMessageRef.push().getKey();
 
-        singleChats = new SingleChats(mSenderId, mReceiverId, message, date, sendingTime);
+        GroupChats groupChats = new GroupChats(mGroupId, mSenderId, message, date, sendingTime);
 
-        messageRef.child(pushId).setValue(singleChats).addOnCompleteListener(new OnCompleteListener<Void>() {
+        groupMessageRef.child(pushGroupId).setValue(groupChats).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(SingleChatBoardActivity.this, "Successful!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(GroupChatBoardActivity.this, "Successful!", Toast.LENGTH_SHORT).show();
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(SingleChatBoardActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(GroupChatBoardActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
 
-    private void initViews() {
-
+    private void inItView() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             dToolbar = findViewById(R.id.toolbar);
         }
         messageField = findViewById(R.id.messageFieldET);
         sendMessage = findViewById(R.id.sendMessage);
-        chatListRecycleView = findViewById(R.id.chatDataRecycleView);
+        groupChatListRecycleView = findViewById(R.id.chatDataRecycleView);
     }
 }

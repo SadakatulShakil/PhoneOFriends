@@ -96,7 +96,6 @@ public class SingleChatListFragment extends Fragment {
 
                         userInfoList.add(user);
 
-
                     }
                 }
                 appUserAdapter.notifyDataSetChanged();

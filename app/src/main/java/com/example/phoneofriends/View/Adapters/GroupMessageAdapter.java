@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.phoneofriends.R;
+import com.example.phoneofriends.View.Model.GroupChats;
 import com.example.phoneofriends.View.Model.SingleChats;
 import com.example.phoneofriends.View.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,44 +24,43 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
-
+public class GroupMessageAdapter extends RecyclerView.Adapter<GroupMessageAdapter.ViewHolder> {
     public static final int MSG_TYPE_LEFT = 0;
     public static final int MSG_TYPE_RIGHT = 1;
     private Context context;
-    private ArrayList<SingleChats> chatList;
+    private ArrayList<GroupChats> chatList;
     private ArrayList<User> userInfoList;
     DatabaseReference userRef;
     String name = "";
     FirebaseUser firebaseUser;
     private User user;
 
-    private static final String TAG = "MessageAdapter";
-    public MessageAdapter(Context context, ArrayList<SingleChats> chatList) {
+    private static final String TAG = "GroupMessageAdapter";
+
+    public GroupMessageAdapter(Context context, ArrayList<GroupChats> chatList) {
         this.context = context;
         this.chatList = chatList;
     }
 
     @NonNull
     @Override
-    public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public GroupMessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if(viewType == MSG_TYPE_LEFT){
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_list_left, parent, false);
-            return new MessageAdapter.ViewHolder(v);
+            return new GroupMessageAdapter.ViewHolder(v);
         }
         else{
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_list_right, parent, false);
-            return new MessageAdapter.ViewHolder(v);
+            return new GroupMessageAdapter.ViewHolder(v);
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MessageAdapter.ViewHolder holder, final int position) {
-        final SingleChats singleChats = chatList.get(position);
+    public void onBindViewHolder(@NonNull final GroupMessageAdapter.ViewHolder holder, final int position) {
 
-        final String time = singleChats.getSendingTime();
-        final String date = singleChats.getSendingDate();
-        final String receiverId = singleChats.getReceiverId();
+        GroupChats groupChats = chatList.get(position);
+        String time = groupChats.getSendingTime();
+        String date = groupChats.getSendingDate();
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final String userId = firebaseUser.getUid();
@@ -73,14 +73,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     User user = userSnapshot.getValue(User.class);
 
-                        if(user.getUserId().equals(chatList.get(position).getReceiverId()) &&
-                                !userId.equals(chatList.get(position).getReceiverId()) ||
-                                user.getUserId().equals(chatList.get(position).getSenderId()) &&
-                                !userId.equals(chatList.get(position).getSenderId())){
-                            name = user.getUserName();
-                            holder.receiverName.setText(name);
-                            Log.d(TAG, "onUserNameCheck: userName :" + name);
-                        }
+                        name = user.getUserName();
+
+                        Log.d(TAG, "onUserNameCheck: userName :" + name);
                 }
 
             }
@@ -90,11 +85,10 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
             }
         });
+
         String dateAndTime = date + ", " + time;
-        holder.showChat.setText(singleChats.getMessages());
+        holder.showGroupChat.setText(groupChats.getMessages());
         holder.timeAndTide.setText(dateAndTime);
-        holder.receiverName.setText(name);
-        //Log.d(TAG, "onUserNameCheck: userName :" + name);
     }
 
     @Override
@@ -103,17 +97,16 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView showChat , timeAndTide, receiverName;
-
+        private TextView showGroupChat, timeAndTide, name;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            showChat = itemView.findViewById(R.id.show_message);
-            timeAndTide = itemView.findViewById(R.id.dateAndTime);
-            receiverName = itemView.findViewById(R.id.senderName);
+         showGroupChat = itemView.findViewById(R.id.show_message);
+         timeAndTide = itemView.findViewById(R.id.dateAndTime);
+         name = itemView.findViewById(R.id.senderName);
+
         }
     }
-
     @Override
     public int getItemViewType(int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -123,4 +116,3 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         else { return MSG_TYPE_LEFT;}
     }
 }
-

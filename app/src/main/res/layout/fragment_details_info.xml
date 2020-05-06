@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ash"
+    tools:context=".View.Fragment.DetailsInfoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/previewImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_margin="8dp"
+        android:src="@drawable/face"
+        app:civ_border_color="@color/ash"
+        app:civ_border_width="6dp"
+        app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+   <!-- <ImageView
+        android:id="@+id/uploadImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/camera"
+        app:layout_constraintBottom_toBottomOf="@+id/previewImage"
+        app:layout_constraintEnd_toEndOf="@+id/previewImage" />-->
+
+    <TextView
+        android:id="@+id/updateBt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:drawableRight="@drawable/ic_update"
+        android:drawablePadding="8dp"
+        android:text="Update"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/previewImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="8dp"
+        android:background="@color/ass"
+        app:layout_constraintTop_toBottomOf="@+id/previewImage" />
+
+    <ScrollView
+        android:id="@+id/editInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/personal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Personal :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/ass"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/personalLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Name:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Your Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Email:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Your Email"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Contact:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userContact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Your Contact"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Birth Day:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userBirthDay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Your Birth date"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Birth Day:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userGender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="5dp"
+                android:text="Your Gender"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/education"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Education :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/ass"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/educationLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/box_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="School:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userSchool"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your school Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Collage:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userCollage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your Collage Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="University:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userUniversity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your University Name"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"
+                android:textColorHint="@color/hint" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/jobAndHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Location and Job :"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/ass"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/jobLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/box_background"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Home Area:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/userHomeArea"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update home Area"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Road:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/roadNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Road"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="House No:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/houseNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your House No"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Job Title:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/jobTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your Job Title"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Office Name:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/officeName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your Office Name"
+                android:textColor="@color/black"
+                android:textColorHint="@color/hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Office Location:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/tint"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/officeLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Update Your Office Location"
+                android:textColor="@color/black"
+                android:layout_marginBottom="5dp"
+                android:textColorHint="@color/hint" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    </ScrollView>>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

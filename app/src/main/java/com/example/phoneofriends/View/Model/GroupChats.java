@@ -7,6 +7,9 @@ public class GroupChats {
     private String sendingDate;
     private String sendingTime;
 
+    public GroupChats() {
+    }
+
     public GroupChats(String groupId, String senderId, String messages, String sendingDate, String sendingTime) {
         this.groupId = groupId;
         this.senderId = senderId;
@@ -53,5 +56,16 @@ public class GroupChats {
 
     public void setSendingTime(String sendingTime) {
         this.sendingTime = sendingTime;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupChats{" +
+                "groupId='" + groupId + '\'' +
+                ", senderId='" + senderId + '\'' +
+                ", messages='" + messages + '\'' +
+                ", sendingDate='" + sendingDate + '\'' +
+                ", sendingTime='" + sendingTime + '\'' +
+                '}';
     }
 }

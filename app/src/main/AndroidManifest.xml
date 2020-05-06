@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_phoneofriends"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.Activity.SingleChatBoardActivity"></activity>
+        <activity android:name=".View.Activity.DetailsInfoActivity"></activity>
+        <activity android:name=".View.Activity.ProfileActivity" />
+        <activity android:name=".View.Activity.GroupChatBoardActivity" />
+        <activity android:name=".View.Activity.SingleChatBoardActivity" />
         <activity android:name=".View.Activity.GroupChatActivity" />
         <activity android:name=".View.Activity.SingleChatActivity" />
         <activity android:name=".View.Activity.HomeActivity" />

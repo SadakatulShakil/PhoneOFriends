@@ -42,6 +42,7 @@ public class GroupChatListFragment extends Fragment {
     private ArrayList<GroupDetail> mGroupList;
     private Context context;
     private DatabaseReference groupNameRef;
+    private DatabaseReference groupMemberRef;
     public GroupChatListFragment() {
         // Required empty public constructor
     }
@@ -81,7 +82,31 @@ public class GroupChatListFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
             }
         });
+
+        //retrieveGroupMember();
     }
+
+    private void retrieveGroupMember() {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        final String userId = firebaseUser.getUid();
+        groupMemberRef = FirebaseDatabase.getInstance().getReference("Members");
+
+        groupMemberRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot memberSnapshot : dataSnapshot.getChildren()){
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
 
     private void retrieveGroupName() {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -94,7 +119,10 @@ public class GroupChatListFragment extends Fragment {
                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                     GroupDetail groupDetail = userSnapshot.getValue(GroupDetail.class);
 
+                    if(userId.equals(groupDetail.getAdminId())){
+
                         mGroupList.add(groupDetail);
+                    }
 
                     }
 

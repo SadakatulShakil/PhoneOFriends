@@ -1,9 +1,10 @@
 package com.example.phoneofriends.View.Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GroupDetail {
+public class GroupDetail implements Serializable {
 
     private String groupId;
     private String adminId;

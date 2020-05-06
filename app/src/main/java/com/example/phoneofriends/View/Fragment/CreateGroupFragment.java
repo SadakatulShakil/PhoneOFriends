@@ -50,9 +50,10 @@ public class CreateGroupFragment extends Fragment {
     private GroupDetail groupDetail;
     private FirebaseUser firebaseUser;
     private DatabaseReference groupRef;
-    private EditText groupNameET;
-    private String member;
     private DatabaseReference groupMemberRef;
+    private EditText groupNameET;
+    private int i;
+    private String member;
 
     public CreateGroupFragment() {
         // Required empty public constructor
@@ -132,6 +133,27 @@ public class CreateGroupFragment extends Fragment {
 
             }
         });
+
+         String strNameList = "";
+        for(i = 0; i< memberInfoList.size(); i++){
+            strNameList =(memberInfoList.get(i).getUserId());
+            groupMemberRef = FirebaseDatabase.getInstance().getReference("Members");
+
+            groupMemberRef.child(groupId).child(String.valueOf(i)).setValue(strNameList).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(context, "Successful members.......", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(context, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }
 
     }
 

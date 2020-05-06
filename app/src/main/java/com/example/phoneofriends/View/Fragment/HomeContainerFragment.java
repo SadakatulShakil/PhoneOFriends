@@ -23,6 +23,14 @@ import com.example.phoneofriends.R;
 import com.example.phoneofriends.View.Activity.SignInActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,6 +42,10 @@ public class HomeContainerFragment extends Fragment {
     private Toolbar toolbar;
     private FrameLayout frameLayout;
     private Context context;
+    private String currentTime, currentDate;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference rootRef;
+    private String currentUserId;
     public HomeContainerFragment() {
         // Required empty public constructor
     }
@@ -54,7 +66,7 @@ public class HomeContainerFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        firebaseAuth = FirebaseAuth.getInstance();
         initView(view);
 
         if (getActivity() != null) {
@@ -67,10 +79,17 @@ public class HomeContainerFragment extends Fragment {
         drawerToggle.syncState();
 
         initNavigationViewDrawer();
+        //updateUserStatus("online");
 
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.fragmentContainer, new UserDashBoardFragment())
                 .commit();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        //updateUserStatus("offffffffffline");
     }
 
     private void initNavigationViewDrawer() {
@@ -118,6 +137,25 @@ public class HomeContainerFragment extends Fragment {
 
     }
 
+    private void updateUserStatus(String state) {
+
+        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat myDateFormat = new SimpleDateFormat("hh:mm a");
+        currentTime = myDateFormat.format(calendar.getTime());
+
+        HashMap<String, Object> onlineStatusMap = new HashMap<>();
+        onlineStatusMap.put("time", currentTime);
+        onlineStatusMap.put("date", currentDate);
+        onlineStatusMap.put("status", state);
+
+        currentUserId = firebaseAuth.getCurrentUser().getUid();
+        rootRef = FirebaseDatabase.getInstance().getReference("User");
+        rootRef.child(currentUserId).child("UserState")
+                .updateChildren(onlineStatusMap);
+
+    }
     private void initView(View view) {
 
         frameLayout = view.findViewById(R.id.fragmentContainer);
