@@ -51,12 +51,12 @@
         app:layout_constraintVertical_bias="2.5" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:gravity="center"
-        android:text="Sadakatul Ajam Md. Shakil"
+        tools:text="Sadakatul Ajam Md. Shakil"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -69,7 +69,7 @@
         android:layout_height="1dp"
         android:layout_margin="5dp"
         android:background="@color/ass"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/userName" />
 
         <LinearLayout
             android:id="@+id/notificationLayout"
@@ -110,7 +110,7 @@
         android:drawableLeft="@drawable/useremail"
         android:drawablePadding="8dp"
         android:padding="5dp"
-        android:text="sadakatulShakil94@gmail.com"
+        tools:text="sadakatulShakil94@gmail.com"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/notificationLayout" />
@@ -123,7 +123,7 @@
         android:drawableLeft="@drawable/usergender"
         android:drawablePadding="8dp"
         android:padding="5dp"
-        android:text="Male"
+        tools:text="Male"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/emailTv" />
@@ -136,7 +136,7 @@
         android:drawableLeft="@drawable/birthday"
         android:drawablePadding="8dp"
         android:padding="5dp"
-        android:text="24 oct, 1995"
+        tools:text="24 oct, 1995"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/genderTv" />
@@ -149,7 +149,7 @@
         android:drawableLeft="@drawable/contact"
         android:drawablePadding="8dp"
         android:padding="5dp"
-        android:text="0175130394"
+        tools:text="0175130394"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/birthDayTv" />
